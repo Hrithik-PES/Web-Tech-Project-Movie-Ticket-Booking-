@@ -29,7 +29,6 @@ const buttonStyle = {
   cursor: "pointer",
   width: "40%",
   align: "center",
-  "hover-opacity": "0.8",
 }  as React.CSSProperties;
 
 const styles = {
@@ -64,6 +63,10 @@ const App: React.FC = () => {
     .then((res: Seat[]) => {
       const seatMap: Seat[][] = [];
       let index = 0;
+      res.sort((a, b) => a.rowID < b.rowID ? -1 : 1)
+      res.sort((a, b) => (a.rowID == b.rowID 
+        && Number.parseInt(a.columnID) < Number.parseInt(b.columnID) ? -1 : 1));
+
       res.forEach((seat, i) => {
         if (i == 0)
           seatMap.push([seat]);
